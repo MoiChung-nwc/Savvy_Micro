@@ -1,0 +1,28 @@
+spring:
+  application:
+    security:
+      jwt:
+        secret-key: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
+        expiration: 900000
+        refresh-token:
+          expiration: 3600000
+    name: student-service
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: conan09040
+    password: conan14121
+    url: jdbc:postgresql://localhost:5432/student_service
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+server:
+  port: 8083
+  servlet:
+    context-path: /api/v1/students/
+gateway:
+  internal:
+    secret: GATEWAY_SHARED_SECRET_123
