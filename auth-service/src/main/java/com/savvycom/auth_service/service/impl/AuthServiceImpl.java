@@ -26,7 +26,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
 
-    private static final String DEFAULT_ROLE_STUDENT = "STUDENT";
+    private static final String DEFAULT_ROLE_STUDENT = "ROLE_STUDENT";
     private static final String STATUS_ACTIVE = "ACTIVE";
 
     private final UserRepository userRepository;
@@ -56,7 +56,7 @@ public class AuthServiceImpl implements AuthService {
         Role studentRole = roleRepository.findByName(DEFAULT_ROLE_STUDENT)
                 .orElseThrow(() -> new BusinessException(
                         ErrorCode.INTERNAL_SERVER_ERROR,
-                        "Missing role STUDENT (seed not run?)"
+                        "Missing role ROLE_STUDENT (seed not run?)"
                 ));
 
         Instant now = Instant.now();

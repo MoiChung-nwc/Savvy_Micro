@@ -38,8 +38,8 @@ public class AdminUserSeeder implements CommandLineRunner {
         String email = adminEmail.trim().toLowerCase();
         if (userRepository.existsByEmail(email)) return;
 
-        Role adminRole = roleRepository.findByName("ADMIN")
-                .orElseThrow(() -> new IllegalStateException("Role ADMIN not found. RBAC seed not run?"));
+        Role adminRole = roleRepository.findByName("ROLE_ADMIN")
+                .orElseThrow(() -> new IllegalStateException("Role ROLE_ADMIN not found. RBAC seed not run?"));
 
         Instant now = Instant.now();
 

@@ -17,7 +17,7 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class AdminUserRoleResolver {
 
-    private static final String DEFAULT_ROLE_STUDENT = "STUDENT";
+    private static final String DEFAULT_ROLE_STUDENT = "ROLE_STUDENT";
 
     private final RoleRepository roleRepository;
 
@@ -27,11 +27,18 @@ public class AdminUserRoleResolver {
 
         Set<Role> roles = new HashSet<>();
         for (String rn : names) {
-            if(!StringUtils.hasText(rn)) continue;
-            String name = rn.trim().toUpperCase(Locale.ROOT);
+            if (!StringUtils.hasText(rn)) continue;
 
-            Role r = roleRepository.findByName(name)
-                    .orElseThrow(() -> new BusinessException(ErrorCode.RESOURCE_NOT_FOUND, "Role not found: " + name));
+            String raw = rn.trim().toUpperCase(Locale.ROOT);
+            String normalized = raw.startsWith("ROLE_") ? raw : "ROLE_" + raw;
+
+            Role r = roleRepository.findByName(normalized)
+                    .orElseGet(() -> roleRepository.findByName(raw)
+                            .orElseThrow(() -> new BusinessException(
+                                    ErrorCode.RESOURCE_NOT_FOUND,
+                                    "Role not found: " + normalized
+                            )));
+
             roles.add(r);
         }
         return roles;

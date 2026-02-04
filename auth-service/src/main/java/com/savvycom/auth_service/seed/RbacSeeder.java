@@ -38,15 +38,15 @@ public class RbacSeeder implements CommandLineRunner {
         Permission gradeRead   = upsertPerm("GRADE_READ", "View grades");
         Permission gradeWrite  = upsertPerm("GRADE_WRITE", "Create/update grades");
 
-        upsertRole("ADMIN", "System administrator",
+        upsertRole("ROLE_ADMIN", "System administrator",
                 Set.of(systemAdmin)
         );
 
-        upsertRole("SCHOOL_MANAGER", "School manager (scoped by schoolIds)",
+        upsertRole("ROLE_SCHOOL_MANAGER", "School manager (scoped by schoolIds)",
                 Set.of(schoolRead, schoolWrite, classRead, classWrite, studentRead, studentWrite, gradeRead, gradeWrite)
         );
 
-        upsertRole("STUDENT", "Student (only view own data)",
+        upsertRole("ROLE_STUDENT", "Student (only view own data)",
                 Set.of(classRead, gradeRead, studentRead)
         );
     }

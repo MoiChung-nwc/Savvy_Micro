@@ -8,6 +8,7 @@ import com.savvycom.auth_service.entity.UserSchoolScope;
 import com.savvycom.auth_service.repository.UserSchoolScopeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Locale;
@@ -28,6 +29,11 @@ public class AuthUserMapper {
 
         return user.getRoles().stream()
                 .map(Role::getName)
+                .filter(StringUtils::hasText)
+                .map(rn -> {
+                    String x = rn.trim().toUpperCase(Locale.ROOT);
+                    return x.startsWith("ROLE_") ? x : "ROLE_" + x;
+                })
                 .distinct()
                 .toList();
     }

@@ -4,10 +4,14 @@ import com.savvy.gateway.exception.GatewayExceptionHandler;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.convert.converter.Converter;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.jwt.ReactiveJwtDecoder;
 import org.springframework.security.web.server.SecurityWebFilterChain;
+import reactor.core.publisher.Mono;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +27,8 @@ public class SecurityConfig {
             ServerHttpSecurity http,
             SecurityProperties props,
             GatewayExceptionHandler handlers,
-            ReactiveJwtDecoder jwtDecoder
+            ReactiveJwtDecoder jwtDecoder,
+            Converter<Jwt, Mono<AbstractAuthenticationToken>> jwtAuthenticationConverter
     ) {
         http.csrf(ServerHttpSecurity.CsrfSpec::disable)
                 .httpBasic(ServerHttpSecurity.HttpBasicSpec::disable)
@@ -32,6 +37,7 @@ public class SecurityConfig {
         http.oauth2ResourceServer(oauth2 -> oauth2
                 .jwt(jwt -> jwt
                         .jwtDecoder(jwtDecoder)
+                        .jwtAuthenticationConverter(jwtAuthenticationConverter)
                 )
                 .authenticationEntryPoint(handlers.authenticationEntryPoint())
         );
