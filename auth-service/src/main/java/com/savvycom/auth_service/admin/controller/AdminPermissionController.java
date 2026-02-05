@@ -22,13 +22,13 @@ public class AdminPermissionController {
     private final AdminPermissionService adminPermissionService;
 
     @GetMapping
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<BaseResponse<List<PermissionResponse>>> listPermissions() {
         return ok("OK", adminPermissionService.listPermissions());
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<BaseResponse<PermissionResponse>> createPermission(
             @Valid @RequestBody CreatePermissionRequest request
     ) {
@@ -36,7 +36,7 @@ public class AdminPermissionController {
     }
 
     @PutMapping("/{permissionId}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<BaseResponse<PermissionResponse>> updatePermission(
             @PathVariable UUID permissionId,
             @Valid @RequestBody UpdatePermissionRequest request
@@ -45,7 +45,7 @@ public class AdminPermissionController {
     }
 
     @DeleteMapping("/{permissionId}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<BaseResponse<Void>> deletePermission(@PathVariable UUID permissionId) {
         adminPermissionService.deletePermission(permissionId);
         return ok("Permission deleted", null);

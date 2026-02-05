@@ -25,19 +25,19 @@ public class AdminUserController {
     private final AdminUserService adminUserService;
 
     @GetMapping
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<BaseResponse<PageResponse<AdminUserSummaryResponse>>> listUsers(Pageable pageable) {
         return ok("OK", adminUserService.listUsers(pageable));
     }
 
     @GetMapping("/{userId}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<BaseResponse<AdminUserDetailResponse>> getUser(@PathVariable UUID userId) {
         return ok("OK", adminUserService.getUser(userId));
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<BaseResponse<AdminUserDetailResponse>> createUser(
             @Valid @RequestBody AdminCreateUserRequest request
     ) {
@@ -45,7 +45,7 @@ public class AdminUserController {
     }
 
     @PutMapping("/{userId}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<BaseResponse<AdminUserDetailResponse>> updateUser(
             @PathVariable UUID userId,
             @Valid @RequestBody AdminUpdateUserRequest request
@@ -54,14 +54,14 @@ public class AdminUserController {
     }
 
     @DeleteMapping("/{userId}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<BaseResponse<Void>> deleteUser(@PathVariable UUID userId) {
         adminUserService.deleteUser(userId);
         return ok("User deleted", null);
     }
 
     @PutMapping("/{userId}/roles")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<BaseResponse<AdminUserDetailResponse>> setUserRoles(
             @PathVariable UUID userId,
             @Valid @RequestBody AdminSetUserRolesRequest request

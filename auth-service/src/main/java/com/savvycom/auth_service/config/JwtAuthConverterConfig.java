@@ -7,10 +7,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 
-import java.util.Collection;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Configuration
 public class JwtAuthConverterConfig {
@@ -28,14 +25,18 @@ public class JwtAuthConverterConfig {
         List<String> roles = jwt.getClaimAsStringList("roles");
         if (roles != null) {
             for (String r : roles) {
-                if (r != null && !r.isBlank()) out.add(new SimpleGrantedAuthority("ROLE_" + r.trim()));
+                if (r == null || r.isBlank()) continue;
+                String name = r.trim().toUpperCase(Locale.ROOT);
+                // tránh ROLE_ROLE_*
+                out.add(new SimpleGrantedAuthority(name.startsWith("ROLE_") ? name : "ROLE_" + name));
             }
         }
 
         List<String> perms = jwt.getClaimAsStringList("permissions");
         if (perms != null) {
             for (String p : perms) {
-                if (p != null && !p.isBlank()) out.add(new SimpleGrantedAuthority(p.trim()));
+                if (p == null || p.isBlank()) continue;
+                out.add(new SimpleGrantedAuthority(p.trim().toUpperCase(Locale.ROOT)));
             }
         }
 
