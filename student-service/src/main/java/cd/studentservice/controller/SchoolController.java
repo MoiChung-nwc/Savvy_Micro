@@ -23,7 +23,7 @@ class SchoolController {
     private final SchoolService schoolService;
 
     @GetMapping
-//    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<BaseResponse<PageResponse<SchoolResponse>>>findAll(@RequestParam int page,
                                                              @RequestParam int size){
         return ResponseEntity.ok(BaseResponse.success(schoolService.getPages(size,page),"Get data succes"));

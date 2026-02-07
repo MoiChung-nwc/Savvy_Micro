@@ -2,7 +2,7 @@ spring:
   application:
     security:
       jwt:
-        secret-key: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
+        secret-key: 1TjXchw5FloESb63Kc+DFhTARvpWL4jUGCwfGWxuG5SIf/1y/LgJxHnMqaF6A/ij
         expiration: 900000
         refresh-token:
           expiration: 3600000
@@ -23,6 +23,3 @@ server:
   port: 8082
   servlet:
     context-path: /api/v1/students/
-gateway:
-  internal:
-    secret: GATEWAY_SHARED_SECRET_123
