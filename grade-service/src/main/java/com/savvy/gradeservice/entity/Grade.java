@@ -19,7 +19,6 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Grade {
-
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     protected UUID id;
@@ -32,10 +31,8 @@ public class Grade {
     
     @Column(name = "student_id", nullable = false)
     private UUID studentId;
-    
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "subject_id", nullable = false)
-    private Subject subject;
+    @Column(name = "subject_id", nullable = false,length = 30)
+    private String subject;
     
     @Column(nullable = false, length = 20)
     private String term;
@@ -57,7 +54,7 @@ public class Grade {
         createdAt = Instant.now();
         updatedAt = Instant.now();
     }
-    
+
     @PreUpdate
     protected void onUpdate() {
         updatedAt = Instant.now();

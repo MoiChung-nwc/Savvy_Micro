@@ -42,12 +42,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         final String permissionsStr = request.getHeader(H_PERMISSIONS);
         final String dataScopeStr = request.getHeader(H_DATA_SCOPE);
 
-        // Debug logging
+        // log thông tin
         logger.info("JWT Headers - UserId: " + userIdStr + ", Roles: " + rolesStr + 
                    ", SchoolIds: " + schoolIdsStr + ", Permissions: " + permissionsStr + ", DataScope: " + dataScopeStr);
 
         if (!StringUtils.hasText(userIdStr)) {
-            logger.warn("No X-User-Id header found, skipping authentication");
+
             filterChain.doFilter(request, response);
             return;
         }

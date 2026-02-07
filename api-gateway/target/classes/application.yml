@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8088
 
 spring:
   application:
@@ -39,19 +39,19 @@ security:
   permissions-mapping:
     - methods: [GET]
       paths: [/api/v1/students/me]
-      require: [STUDENT_READ_SELF]
+      require: [STUDENT_READ]
     - methods: [GET]
       paths: [/api/v1/students/**]
-      require: [STUDENT_READ_SCHOOL]
+      require: [STUDENT_READ]
     - methods: [GET]
       paths: [/api/v1/grades/me]
-      require: [GRADE_READ_SELF]
+      require: [GRADE_READ]
     - methods: [GET]
       paths: [/api/v1/grades/**]
-      require: [GRADE_READ_SCHOOL]
+      require: [GRADE_READ]
     - methods: [POST, PUT, DELETE]
       paths: [/api/v1/grades/**]
-      require: [GRADE_WRITE_SCHOOL]
+      require: [GRADE_WRITE]
     - methods: [ GET,POST,PUT,DELETE ]
       paths: [ /api/v1/auth/admin/** ]
       require: [ ROLE_ADMIN ]

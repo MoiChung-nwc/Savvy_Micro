@@ -17,7 +17,6 @@ import java.util.UUID;
 @Entity
 @Table(name = "users")
 public class User {
-
     @Id
     @UuidGenerator
     @Column(name = "id", updatable = false, nullable = false)
