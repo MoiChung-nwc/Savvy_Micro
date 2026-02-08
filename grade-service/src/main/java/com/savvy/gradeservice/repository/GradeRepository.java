@@ -9,7 +9,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public interface GradeRepository extends JpaRepository<Grade, UUID> {
+public interface GradeRepository extends JpaRepository<Grade, UUID>, GradeRepositoryCustom {
     
     List<Grade> findByStudentIdAndTerm(UUID studentId, String term);
     
@@ -17,6 +17,6 @@ public interface GradeRepository extends JpaRepository<Grade, UUID> {
 
     List<Grade> findBySchoolIdIn(List<UUID> schoolIds);
 
-    boolean existsByStudentIdAndSubjectIdAndTerm(UUID studentId, UUID subjectId, String term);
+    boolean existsByStudentIdAndSubjectAndTerm(UUID studentId, String subject, String term);
 
 }

@@ -65,7 +65,7 @@ public class UserContext {
 
     public List<UUID> getAccessibleSchoolIds() {
         if (isAdmin()) {
-            return List.of(); // ADMIN has access to all schools
+            return List.of(); // admin all quyền
         }
         return dataScopeSchoolIds != null ? dataScopeSchoolIds : List.of();
     }
